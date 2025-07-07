@@ -1,0 +1,50 @@
+import numpy as np
+l1=[2,3,4,5,6]
+arr3=np.array(l1)
+print(arr3)
+print(l1)
+
+import numpy as np
+arr4=np.arange(2,10,2)
+print(arr4)
+
+import numpy as np
+line=np.linspace(1,10,10)
+print(line)
+
+
+import numpy as np
+arr5=np.array([[1,2,3],[4,5,6],[7,8,9]])
+print(arr5.shape)
+print(arr5)
+print(arr5[2,2])
+
+
+import numpy as np
+arr1=np.array([2,3,4,5,6])
+print(arr1)
+
+import numpy as np
+arr2=np.array([[1,1,1,1,1],[2,2,2,2,2]])
+print(arr2)
+
+import numpy as np
+data=np.array([5,2,7,3,9])
+print(data[:])
+print(data[:3])
+print(data[:2])
+print(data[-4:-2])
+
+
+import numpy as np
+a=np.array([1,2,3,4,5,6])
+B=np.reshape(a,(2,3))
+print(B)
+
+
+import numpy as np
+e=np.arange(2,11,1)
+print(e)
+d=np.reshape(e,(3,3))
+print(d)
+print(d[1,2])
