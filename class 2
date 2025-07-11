@@ -1,0 +1,51 @@
+import matplotlib.pyplot as plt
+x=[1,2,3]
+y=[5,7,4]
+plt.plot(x,y,label="First line")
+x1=[1,2,3]
+y1=[10,5,4]
+plt.plot(x1,y1,label="second line")
+plt.xlabel("plot number")
+plt.ylabel("variables")
+plt.title('new graph')
+plt.legend()
+plt.show()
+
+
+
+import matplotlib.pyplot as plt
+plt.plot([1,2,3],[5,7,4])
+plt.show()
+
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+t=np.arange(0.0,20.0,1)
+s=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]
+s2=[8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27]
+plt.subplot(2,5,1)
+plt.ylabel("value")
+plt.title("first chart")
+plt.grid(True)
+plt.plot(t,s)
+plt.subplots_adjust(hspace=0.4,wspace=0.4)
+plt.subplot(2,2,2)
+plt.xlabel("item")
+plt.ylabel("value")
+plt.title("second chart")
+plt.plot(t,s2)
+plt.grid(True)
+plt.show()
+
+
+
+
+import matplotlib.pyplot as plt
+weight=[83.3,74,64.5,79,90,84.8,84,88,66,77,79,90.5,74.3,90,73]
+height=[167,113.7,124.8,165.5,145.4,155,149,180,169.5,156,167.3,145,185,181,168.3]
+plt.scatter(weight,height,c='y',marker='_')
+plt.xlabel('weight',fontsize=16)
+plt.ylabel('height',fontsize=16)
+plt.title('scatter plot-height vs weight',fontsize=25)
+plt.show()
