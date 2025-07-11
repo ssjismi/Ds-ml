@@ -49,3 +49,19 @@ plt.xlabel('weight',fontsize=16)
 plt.ylabel('height',fontsize=16)
 plt.title('scatter plot-height vs weight',fontsize=25)
 plt.show()
+
+
+
+
+
+
+import matplotlib.pyplot as plt
+import numpy as np
+object=('python','c++','java','perl','scala','react')
+ypos=np.arange(len(object))
+performance=[10,8,6,4,2,1]
+plt.bar(performance,ypos,align='center',color='y')
+plt.yticks(ypos,object)
+plt.xlabel('usage')
+plt.title('programming language usage')
+plt.show()
