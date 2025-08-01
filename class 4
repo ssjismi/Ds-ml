@@ -1,0 +1,33 @@
+Muffin Weight
+
+
+import matplotlib.pyplot as plt
+weight=[78,72,69,81,63,67,65,79,74,71,81,71,79,80]
+plt.hist(weight,bins=[50,55,60,65,70,75,80,85],color='green',edgecolor='black')
+plt.title('histogram of muffin weight')
+plt.xlabel('weight(grams)')
+plt.ylabel('frequency')
+plt.show()
+
+
+Note histogram
+
+import matplotlib.pyplot as plt
+student_data=[5,15,25,35,45,55]
+plt.hist(student_data,bins=[0,10,20,30,40,50,60],weights=[20,10,45,33,6,8],edgecolor='red')
+plt.show()
+
+
+
+y=x^2
+
+import matplotlib.pyplot as plt
+import numpy as np
+x=np.arange(1,10,1)
+y=x**2
+plt.plot(x,y,color='green')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
+
+
