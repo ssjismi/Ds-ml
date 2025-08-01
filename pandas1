@@ -1,0 +1,33 @@
+import pandas as pd
+s=pd.Series([1,2,3,4,5],index=['a','b','c','d','e'])
+print(s)
+print(s.iloc[1:4])
+print(s.loc['b':'e'])
+
+😍😍😍😍
+a    1
+b    2
+c    3
+d    4
+e    5
+dtype: int64
+b    2
+c    3
+d    4
+dtype: int64
+b    2
+c    3
+d    4
+e    5
+dtype: int64
+
+
+import pandas as pd
+s=pd.Series({'Jan':31,'feb':28,'Mar':31,'Apr':30})
+print(s)
+😍😍😍😍😍
+Jan    31
+feb    28
+Mar    31
+Apr    30
+dtype: int64
