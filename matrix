@@ -1,0 +1,117 @@
+import numpy as np
+a=np.array([1,2,3])
+print("type: %s" %type(a))
+print("shape: %s" %a.shape)
+print(a[0],a[1],a[2])
+a[0]=5
+print(a)
+b=np.array([[1,2,3],[4,5,6]])
+print("\n shape of b: ",b.shape)
+print(b[0,0],b[0,1],b[1,0])
+a=np.zeros((2,2))
+print("all zeros matrix: \n %s" %a)
+b=np.ones((1,2))
+print("all one matrix:\n %s" %b)
+d=np.eye(2)
+print("\n identifying matrix:\n %s" %d)
+e=np.random.random((2,2))
+print("\n Random matrix: \n %s" %e)
+print("vectorized sum example \n")
+x=np.array([[1,2],[3,4]])
+print("X: %s" %x)
+print("sum %s" %np, sum(x))
+print("sum axis=0: %s" %np.sum(x,axis=0))
+print("sum axis=1: %s" %np.sum(x,axis=1))
+a=np.arange(10000)
+b=np.arange(10000)
+dp=np.dot(a,b)
+print("dot product is %s \n" %dp)
+op=np.outer(a,b)
+print("\n outer product:%s\n" %op)
+ep=np.multiply(a,b)
+print("\nElement wise product:%s\n"%ep)
+
+
+import numpy as np
+n=np.array([[1,2],[3,4]])
+print("original x:\n %s" %x)
+print("transpose of x :\n %s"%x)
+
+
+from numpy import array
+from scipy.linalg import svd
+A=array([[1,2],[3,4],[5,6]])
+print("A:\n %s"%A)
+U,s,VT=svd(A)
+print("\nU:\n%s"%U)
+print("\nS:\n%s"%s)
+print("\nVT:\n%s"%VT)
+
+
+
+💘💘💘💘💘💘💘💘💘💘💘💘💘
+output
+
+type: <class 'numpy.ndarray'>
+shape: 3
+1 2 3
+[5 2 3]
+
+ shape of b:  (2, 3)
+1 2 4
+all zeros matrix: 
+ [[0. 0.]
+ [0. 0.]]
+all one matrix:
+ [[1. 1.]]
+
+ identifying matrix:
+ [[1. 0.]
+ [0. 1.]]
+
+ Random matrix: 
+ [[0.35728664 0.37637347]
+ [0.08293848 0.22028851]]
+vectorized sum example 
+
+X: [[1 2]
+ [3 4]]
+sum <module 'numpy' from 'C:\\Users\\DBLab\\anaconda3\\lib\\site-packages\\numpy\\__init__.py'> [4 6]
+sum axis=0: [4 6]
+sum axis=1: [3 7]
+dot product is -1724114088 
+
+
+ outer product:[[       0        0        0 ...        0        0        0]
+ [       0        1        2 ...     9997     9998     9999]
+ [       0        2        4 ...    19994    19996    19998]
+ ...
+ [       0     9997    19994 ... 99940009 99950006 99960003]
+ [       0     9998    19996 ... 99950006 99960004 99970002]
+ [       0     9999    19998 ... 99960003 99970002 99980001]]
+
+
+Element wise product:[       0        1        4 ... 99940009 99960004 99980001]
+
+original x:
+ [[1 2]
+ [3 4]]
+transpose of x :
+ [[1 2]
+ [3 4]]
+A:
+ [[1 2]
+ [3 4]
+ [5 6]]
+
+U:
+[[-0.2298477   0.88346102  0.40824829]
+ [-0.52474482  0.24078249 -0.81649658]
+ [-0.81964194 -0.40189603  0.40824829]]
+
+S:
+[9.52551809 0.51430058]
+
+VT:
+[[-0.61962948 -0.78489445]
+ [-0.78489445  0.61962948]]
