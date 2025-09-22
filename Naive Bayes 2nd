@@ -1,0 +1,70 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split # to split data into train/test sets
+from sklearn.feature_extraction.text import CountVectorizer # converts text -> token counts
+from sklearn.naive_bayes import MultinomialNB # classifier for discrete counts
+from sklearn.metrics import accuracy_score, classification_report
+
+
+data = {
+    'label': ['ham', 'spam', 'ham', 'ham', 'spam', 'ham', 'spam', 'ham'],
+    'message': [
+        "Hello, how are you?",
+        "Congratulations! You’ve won a lottery of $1000",
+        "Don’t forget our meeting tomorrow",
+        "Your subscription is renewed",
+        "Click here to claim your prize!",
+        "Limited time offer! Get your discount now",
+        "Have a great day!",
+        "See you tomorrow"
+    ]
+}
+df = pd.DataFrame(data) # put the data in a DataFrame for convenience
+
+X = df['message'] # text inputs
+y = df['label'] # 'spam' or 'ham'
+
+# 4. split into training and test sets
+# test_size=0.5 -> 50% train / 50% test (small dataset used here for demo)
+# random_state ensures reproducible splits
+# stratify=y attempts to keep class proportions in train and test
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.5, random_state=42, stratify=y
+)
+vectorizer = CountVectorizer() # default: lowercase, token_pattern=r"(?u)\b\w\w+\b"
+X_train_vect = vectorizer.fit_transform(X_train) # learn vocabulary from training set + transform
+X_test_vect = vectorizer.transform(X_test) # transform test set using same vocab
+model = MultinomialNB() # alpha=1.0 (Laplace smoothing) by default
+model.fit(X_train_vect, y_train) # learns class priors and P(word|class)
+
+# 7. predictions on test set
+y_pred = model.predict(X_test_vect)
+
+# 8. evaluation
+accuracy = accuracy_score(y_test, y_pred)
+print(f"Accuracy: {accuracy * 100:.2f}%")
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+# 9. predict a new single message
+new_message = ["How are you?"]
+new_message_vect = vectorizer.transform(new_message) # must use same vectorizer
+new_pred = model.predict(new_message_vect)
+print(f"\nPredicted label for new message: {new_pred[0]}")
+
+
+❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
+
+
+Accuracy: 25.00%
+
+Classification Report:
+               precision    recall  f1-score   support
+
+         ham       0.50      0.33      0.40         3
+        spam       0.00      0.00      0.00         1
+
+    accuracy                           0.25         4
+   macro avg       0.25      0.17      0.20         4
+weighted avg       0.38      0.25      0.30         4
+
+
+Predicted label for new message: ham
