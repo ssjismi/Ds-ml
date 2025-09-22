@@ -3,10 +3,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.metrics import accuracy_score,classification_report
-data={'label':['ham','spam','ham','ham','spam','ham'],
+data={'label':['ham','spam','ham','ham','spam','ham','spam'],
      'message':["hello,how are you?",
                "congratulation! you've won a lottery of $1000",
                "Don't forget our meeting tomorrow",
+                "your subscription is renewed",
                "Click here to claim your prize!",
                "Limited time offer! Get your discount now",
                "have a great day!"]}
@@ -27,7 +28,10 @@ new_message_vectorized=vectorizer.transform(new_message)
 new_pred=model.predict(new_message_vectorized)
 print(f"predicted label for new message:{new_pred[0]}")
 
+
+
 ❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
 
-accuracy: 33.33 % 
-predicted label for new message:ham
+
+accuracy: 25.00 % 
+predicted label for new message:spam
