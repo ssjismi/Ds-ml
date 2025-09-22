@@ -1,0 +1,33 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.metrics import accuracy_score,classification_report
+data={'label':['ham','spam','ham','ham','spam','ham'],
+     'message':["hello,how are you?",
+               "congratulation! you've won a lottery of $1000",
+               "Don't forget our meeting tomorrow",
+               "Click here to claim your prize!",
+               "Limited time offer! Get your discount now",
+               "have a great day!"]}
+df=pd.DataFrame(data)
+x=df['message']
+y=df['label']
+x_train,x_test,y_train,y_test=train_test_split(x,y,test_size=0.5,random_state=42,stratify=y)
+vectorizer=CountVectorizer()
+x_train_vectorized=vectorizer.fit_transform(x_train)
+x_test_vectorized=vectorizer.transform(x_test)
+model=MultinomialNB()
+model.fit(x_train_vectorized,y_train)
+y_pred=model.predict(x_test_vectorized)
+accuracy=accuracy_score(y_test,y_pred)
+print(f"accuracy: {accuracy*100:.2f} % ")
+new_message=['how are you']
+new_message_vectorized=vectorizer.transform(new_message)
+new_pred=model.predict(new_message_vectorized)
+print(f"predicted label for new message:{new_pred[0]}")
+
+❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️
+
+accuracy: 33.33 % 
+predicted label for new message:ham
