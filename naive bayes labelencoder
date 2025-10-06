@@ -1,0 +1,137 @@
+Program to implement Naivebayes for categorical data(using LabelEncoder)
+
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import LabelEncoder
+from sklearn.naive_bayes import CategoricalNB
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score, classification_report
+
+# -----------------------------
+# 1. Load Data
+# -----------------------------
+data = pd.read_csv("data.csv")
+print("Dataset:\n", data)
+
+# Separate features (X) and target (y)
+X = data.drop("PlayTennis", axis=1).copy()
+y = data["PlayTennis"]
+
+# -----------------------------
+# 2. Encode categorical features
+# -----------------------------
+le_outlook = LabelEncoder()
+X["Outlook"] = le_outlook.fit_transform(X["Outlook"])
+
+le_temp = LabelEncoder()
+X["Temperature"] = le_temp.fit_transform(X["Temperature"])
+
+le_humidity = LabelEncoder()
+X["Humidity"] = le_humidity.fit_transform(X["Humidity"])
+
+le_windy = LabelEncoder()
+X["Windy"] = le_windy.fit_transform(X["Windy"])
+
+print("\nEncoded Features (X):\n", X)
+
+# Encode target
+le_play = LabelEncoder()
+y = le_play.fit_transform(y)
+
+print("\nEncoded Target (y):\n", y)
+
+# -----------------------------
+# 3. Train-test split
+# -----------------------------
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, stratify=y, random_state=42
+)
+
+# -----------------------------
+# 4. Train model
+# -----------------------------
+classifier = CategoricalNB()
+classifier.fit(X_train, y_train)
+
+# -----------------------------
+# 5. Evaluate model
+# -----------------------------
+y_pred = classifier.predict(X_test)
+
+print("\nAccuracy:", accuracy_score(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred, target_names=le_play.classes_))
+
+# -----------------------------
+# 6. Predict new sample using array
+# -----------------------------
+# New input: ('sunny','hot','high','False')
+new_sample = np.array([[ le_outlook.transform(["Sunny"])[0],le_temp.transform(["Hot"])[0],le_humidity.transform(["High"])[0],le_windy.transform(["False"])[0]
+]])
+
+prediction = classifier.predict(new_sample)
+predicted_label = le_play.inverse_transform(prediction)[0]
+
+print("\nPrediction for ('Sunny','hot','high','False'):", predicted_label)
+
+
+😁😁😁😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊😊
+
+
+Dataset:
+      Outlook Temperature Humidity  Windy PlayTennis
+0      Sunny         Hot     High  False         No
+1      Sunny         Hot     High   True         No
+2   Overcast         Hot     High  False        Yes
+3      Rainy        Mild     High  False        Yes
+4      Rainy        Cool   Normal  False        Yes
+5      Rainy        Cool   Normal   True         No
+6   Overcast        Cool   Normal   True        Yes
+7      Sunny        Mild     High  False         No
+8      Sunny        Cool   Normal  False        Yes
+9      Rainy        Mild   Normal  False        Yes
+10     Sunny        Mild   Normal   True        Yes
+11  Overcast        Mild     High   True        Yes
+12  Overcast         Hot   Normal  False        Yes
+13     Rainy        Mild     High   True         No
+
+Encoded Features (X):
+     Outlook  Temperature  Humidity  Windy
+0         2            1         0      0
+1         2            1         0      1
+2         0            1         0      0
+3         1            2         0      0
+4         1            0         1      0
+5         1            0         1      1
+6         0            0         1      1
+7         2            2         0      0
+8         2            0         1      0
+9         1            2         1      0
+10        2            2         1      1
+11        0            2         0      1
+12        0            1         1      0
+13        1            2         0      1
+
+Encoded Target (y):
+ [0 0 1 1 1 0 1 0 1 1 1 1 1 0]
+
+Accuracy: 0.6666666666666666
+
+Classification Report:
+               precision    recall  f1-score   support
+
+          No       0.00      0.00      0.00         1
+         Yes       0.67      1.00      0.80         2
+
+    accuracy                           0.67         3
+   macro avg       0.33      0.50      0.40         3
+weighted avg       0.44      0.67      0.53         3
+
+
+Prediction for ('Sunny','hot','high','False'): No
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/metrics/_classification.py:1565: UndefinedMetricWarning: Precision is ill-defined and being set to 0.0 in labels with no predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, modifier, f"{metric.capitalize()} is", len(result))
+/usr/local/lib/python3.12/dist-packages/sklearn/utils/validation.py:2739: UserWarning: X does not have valid feature names, but CategoricalNB was fitted with feature names
+  warnings.warn(
