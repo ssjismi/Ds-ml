@@ -1,0 +1,59 @@
+import pandas as pd
+import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier, plot_tree
+from sklearn.metrics import accuracy_score
+import matplotlib.pyplot as plt
+
+# ---- Step 1: Load dataset ----
+# Make sure your Social_Network_Ads.csv is in the same folder as this script
+data = pd.read_csv("/content/newdata.csv")
+
+# Display first few rows
+print("Sample Data:")
+print(data.head())
+
+# ---- Step 2: Preprocess Data ----
+# Convert categorical 'Gender' column into numeric (Male=1, Female=0)
+data['Gender'] = data['Gender'].map({'Male': 1, 'Female': 0})
+
+# Select features and target
+X = data[['Age', 'EstimatedSalary', 'Gender']]
+y = data['Purchased']
+
+# ---- Step 3: Split into training and testing sets ----
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
+
+# ---- Step 4: Model 1 - Using default (Gini) ----
+clf_gini = DecisionTreeClassifier(random_state=42)
+clf_gini.fit(X_train, y_train)
+y_pred_gini = clf_gini.predict(X_test)
+
+print("\n--- Gini Criterion ---")
+print("Accuracy on Train Data:", accuracy_score(y_train, clf_gini.predict(X_train)))
+print("Accuracy on Test Data :", accuracy_score(y_test, y_pred_gini))
+
+# ---- Step 5: Model 2 - Using Entropy ----
+clf_entropy = DecisionTreeClassifier(criterion='entropy', random_state=42)
+clf_entropy.fit(X_train, y_train)
+y_pred_entropy = clf_entropy.predict(X_test)
+
+print("\n--- Entropy Criterion ---")
+print("Accuracy on Train Data:", accuracy_score(y_train, clf_entropy.predict(X_train)))
+print("Accuracy on Test Data :", accuracy_score(y_test, y_pred_entropy))
+
+# ---- Step 6: Model 3 - Entropy + min_samples_split ----
+clf_entropy_min_split = DecisionTreeClassifier(criterion='entropy', min_samples_split=20, random_state=42)
+clf_entropy_min_split.fit(X_train, y_train)
+y_pred_entropy_min_split = clf_entropy_min_split.predict(X_test)
+
+print("\n--- Entropy + min_samples_split ---")
+print("Accuracy on Train Data:", accuracy_score(y_train, clf_entropy_min_split.predict(X_train)))
+print("Accuracy on Test Data :", accuracy_score(y_test, y_pred_entropy_min_split))
+
+# ---- Step 7: Visualization ----
+plt.figure(figsize=(14, 8))
+plot_tree(clf_gini, feature_names=X.columns, class_names=['Not Purchased', 'Purchased'],filled=True, rounded=True)
+plt.title("Decision Tree Visualization (Gini Criterion)")
+plt.show()
+
