@@ -7,7 +7,7 @@ from sklearn.svm import SVC
 from sklearn import metrics
 
 # Read the CSV file
-df = pd.read_csv('Social_Network_Ads.csv')
+df = pd.read_csv('Social_Networks_Ads.csv')
 X = df[['Age', 'EstimatedSalary']]
 y = df['Purchased']
 
